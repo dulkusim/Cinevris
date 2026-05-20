@@ -25,14 +25,15 @@ cursor.execute('''
                    movieId INTEGER,
                    rating REAL,
                    timestamp INTEGER,
+                   PRIMARY KEY (userId, movieId),
                    FOREIGN KEY(movieId) REFERENCES movies(movieId)
-                )
+               )
 ''')
 
 print('Creating tags table')
 cursor.execute('''
                CREATE TABLE IF NOT EXISTS tags(
-                   userId INTEGRER,
+                   userId INTEGER,
                    movieId INTEGER,
                    tag TEXT,
                    timestamp INTEGER,
@@ -69,7 +70,7 @@ with open('./data/tags.csv', 'r', encoding='utf-8') as file:
     
     for row in reader:
         cursor.execute('''
-                       INSERT OR IGNORE INTO tags(userId, movieId, tag, timestamp)
+                       INSERT INTO tags(userId, movieId, tag, timestamp)
                        VALUES (?,?,?,?)
                        ''',(row[0],row[1],row[2],row[3]))
 
