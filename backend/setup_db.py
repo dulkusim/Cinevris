@@ -14,7 +14,8 @@ cursor.execute('''
                CREATE TABLE IF NOT EXISTS movies(
                    movieId INTEGER PRIMARY KEY,
                    title TEXT,
-                   genres TEXT
+                   genres TEXT,
+                   UNIQUE(title, genres)
                 )
 ''')
 
