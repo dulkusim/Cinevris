@@ -27,3 +27,19 @@ def search_movies(search: str = ""):
     conn.close()
 
     return {"status": "success", "movies": movies}
+
+# Get Ratings for a Movie: GET /ratings/{movieId}
+@app.get('/movielens/api/ratings/{movieId}')
+def get_ratings(movieId : int):
+    conn = get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute(
+        "SELECT * FROM ratings WHERE ratings.movieId = ?",
+        (movieId,)
+    )
+    
+    ratings = [dict(row) for row in cursor.fetchall()]
+    conn.close()
+
+    return {"status": "success", "ratings": ratings}
