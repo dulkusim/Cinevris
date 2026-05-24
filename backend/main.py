@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import get_connection
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -28,6 +29,7 @@ def search_movies(search: str = ""):
 
     return {"status": "success", "movies": movies}
 
+
 # Get Ratings for a Movie: GET /ratings/{movieId}
 @app.get('/movielens/api/ratings/{movieId}')
 def get_ratings(movieId : int):
@@ -35,7 +37,7 @@ def get_ratings(movieId : int):
     cursor = conn.cursor()
     
     cursor.execute(
-        "SELECT * FROM ratings WHERE ratings.movieId = ?",
+        "SELECT * FROM ratings WHERE movieId = ?",
         (movieId,)
     )
     
@@ -43,3 +45,25 @@ def get_ratings(movieId : int):
     conn.close()
 
     return {"status": "success", "ratings": ratings}
+
+
+# Add a New Movie: POST /movies
+class NewMovie(BaseModel):
+    title : str
+    genres: str
+    
+@app.post('/movielens/api/movies')
+def add_movie(movie: NewMovie):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "INSERT OR IGNORE INTO movies(title, genres) VALUES (?,?)",
+        (movie.title, movie.genres)
+    )
+
+    conn.commit()
+    new_id = cursor.lastrowid
+    conn.close()
+
+    return {"status": "success", "movieId": new_id}
