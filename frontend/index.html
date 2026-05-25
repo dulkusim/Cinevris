@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cinevris</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/png" href="Cinevris.png">
+</head>
+<body>
+
+    <header>
+        <h1>Cinevris</h1>
+        <p>Explore movies, rate them, and get personalized recommendations.</p>
+    </header>
+
+    <main>
+
+        <!-- SECTION 1: Add a Movie -->
+        <section id="add-movie-section">
+            <h2>Add a Movie</h2>
+
+            <label for="new-title">Title</label>
+            <input type="text" id="new-title" placeholder="e.g. Inception">
+
+            <label for="new-genres">Genres</label>
+            <input type="text" id="new-genres" placeholder="e.g. Action|Thriller">
+
+            <button id="add-movie-btn">Add Movie</button>
+
+            <p id="add-movie-feedback"></p>
+        </section>
+
+        <!-- SECTION 2: Search Movies -->
+        <section id="search-section">
+            <h2>Search Movies</h2>
+
+            <label for="search-input">Search by title</label>
+            <input type="text" id="search-input" placeholder="e.g. Toy Story">
+
+            <button id="search-btn">Search</button>
+
+            <div id="search-results"></div>
+        </section>
+
+        <!-- SECTION 3: Recommendations -->
+        <section id="recommendations-section">
+            <h2>Recommendations</h2>
+            <p>Rate some movies from the search results first, then click below.</p>
+
+            <button id="recommend-btn">Get Recommendations</button>
+
+            <div id="recommendations-results"></div>
+        </section>
+
+    </main>
+
+    <script src="index.js"></script>
+</body>
+</html>
